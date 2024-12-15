@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { routes } from '../../app.routes';
 import { RouterModule } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidemenu',
@@ -12,7 +13,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   templateUrl: './sidemenu.component.html',
   styleUrl: './sidemenu.component.scss'
 })
-export class SidemenuComponent {
+export class SidemenuComponent implements OnInit{
 
   menuItems = routes
   .map( route => route.children ?? [] )
@@ -20,12 +21,13 @@ export class SidemenuComponent {
   .filter( route => route && route.path )
   .filter( route => !route.path?.includes(':') );
 
+  userLogin = inject(AuthService);
+  user: any;
+
  icons = [
   {
     name: 'reservaciones',
-    ico: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-hover:text-indigo-400">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                          </svg>`
+    ico: `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-home-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2" /><path d="M19 13.488v-1.488h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h4.525" /><path d="M15 19l2 2l4 -4" /></svg>`
   },
   {
     name: 'habitaciones',
@@ -55,6 +57,12 @@ export class SidemenuComponent {
  ];
 
  constructor(private sanitizer: DomSanitizer){}
+
+ ngOnInit(): void {
+   this.userLogin.userDataR$.subscribe( data => {
+      console.log(data)
+   })
+ }
 
  transformIco(ico:string){
   let icoHtml: SafeHtml = "";

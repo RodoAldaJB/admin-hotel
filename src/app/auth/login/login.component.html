@@ -1,0 +1,64 @@
+<div class="relative flex min-h-screen text-gray-800 antialiased flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+    <div class="relative py-3 sm:w-96 mx-auto text-center">
+      <span class="text-2xl font-light ">Login DemoHotel</span>
+      <div class="mt-4 bg-white shadow-md rounded-lg text-left">
+        <form [formGroup]="userLogin" (submit)="onSubmit()">
+            <div class="h-2 bg-blue-800 rounded-t-md"></div>
+            <div class="px-8 py-6 ">
+              <label class="block font-semibold">Correo electrónico </label>
+              <input type="text" formControlName="email" placeholder="Email" class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md">
+              @if (userLogin.controls["email"].invalid && userLogin.controls["email"].touched) {
+                <span class="text-sm text-red-500">campo email requerido</span>
+              }
+              @if (identify) {
+                <span class="text-sm text-red-500">campo email requerido</span>
+              }
+              <label class="block mt-3 font-semibold">Contraseña</label>
+              <input type="password" formControlName="password" placeholder="Password" class="border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md">
+              @if (userLogin.controls["password"].invalid && userLogin.controls["password"].touched) {
+                <span class="text-sm text-red-500">contraseña minimo 8 caracteres</span>
+              }
+                <div class="flex justify-between items-baseline">
+                  <button type="submit" [disabled]="userLogin.invalid" class="mt-4 bg-blue-800 text-white py-2 px-6 rounded-md enabled:hover:bg-blue-600">Entrar</button>
+                  <button type="button" (click)="questions()" class="text-sm hover:underline">Recuperar contraseña</button>
+                </div>
+            </div>
+        </form>        
+    </div>
+  </div>
+
+  @if (submit) {
+
+    <div id="popup-modal" tabindex="-1" [ngClass]="{'flex': true}" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                
+                <div class="p-4 md:p-5 text-center">
+                    @if (errorSubmit != '') {
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>
+                    <h3 class="mb-10 text-lg font-normal text-gray-500 dark:text-gray-400">{{ errorSubmit }}</h3>
+
+                        <button (click)="hideModal()" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            Cerrar
+                        </button>
+                        
+                    }@else {
+                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Operación exitosa</h3>
+                        
+
+                            <div class="flex justify-center space-x-2 animate-pulse">
+                                <div class="w-3 h-3 bg-gray-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-gray-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-gray-500 rounded-full"></div>
+                            </div>
+                        
+                        
+                        
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

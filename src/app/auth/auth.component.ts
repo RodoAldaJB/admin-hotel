@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+
 @Component({
   standalone: true,
-  imports: [    
+  imports: [
     RouterModule
   ],
-  templateUrl: './room.component.html',
-  styles: ``
+  templateUrl: './auth.component.html',
+  styleUrl: './auth.component.scss'
 })
-export default class RoomComponent{
-  
+export default class AuthComponent {  
 
 }

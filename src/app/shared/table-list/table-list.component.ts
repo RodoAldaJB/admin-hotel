@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-table-list',
@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './table-list.component.scss'
 })
 export class TableListComponent {
+
+  @Input() data : any;
 
 }

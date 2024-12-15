@@ -1,0 +1,20 @@
+<div class="flex">
+    <app-title class="flex-auto" title="Listado de Habitaciones"/>
+    <div class="flex-auto">
+        <button type="button" 
+                routerLink="/dashboard/habitaciones/crear"
+                class="flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                >
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                NUEVO
+        </button>
+    </div>
+</div>
+
+@if (habitations) {
+
+    <app-table-list-habitations [habitations]="habitations"/>
+}@else {
+
+    <div class="text-3xl">cargando...</div>
+}
