@@ -1,0 +1,59 @@
+<div
+    class="drop-area border-[1px] border-gray-400 border-dashed rounded p-5 text-center text-gray-400 bg-slate-100"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+    (click)="triggerFileInput()">
+      <p class="mb-2">Arrastra y suelta tus imágenes aquí</p>
+      
+</div>
+
+@if (images[0] ) {
+    <div class="my-2 border-gray-400 border-dashed rounded p-5 text-center text-gray-400 bg-slate-100">
+        <ul class="list-none p-0 mb-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
+            @for (image of images; track $index) {
+                <li class="relative h-[135px]">
+                    <div class="absolute h-full w-full z-10 flex justify-center items-center opacity-0 hover:opacity-100 hover:bg-slate-200 hover:bg-opacity-40 transition-all ease-in-out">
+                        <button type="button" (click)="delete($index)" class="hover:text-red-500 transition-all ease-in-out">
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                        </button>
+                    </div>
+                  <img class="h-[135px] w-full object-cover object-center" [src]="image" alt="Imagen de tipo" />
+                </li>
+    
+            }
+          </ul>
+    </div>
+}
+
+<!-- Input de archivo oculto -->
+<input 
+  type="file" 
+  #fileInput 
+  multiple 
+  accept="image/*" 
+  (change)="onFileSelected($event)" 
+  style="display: none;">
+
+  @if (modal) {
+    <div id="popup-modal" tabindex="-1" [ngClass]="{'flex': true}" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                
+                <div class="p-4 md:p-5 text-center">
+                    
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>
+                    <h3 class="mb-10 text-lg font-normal text-gray-500 dark:text-gray-400">Las imagenes deben ser JPG o PNG</h3>
+
+                        <button (click)="modal = false" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            cerrar
+                        </button>
+                        
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+  }

@@ -39,8 +39,13 @@ export default class LoginComponent {
         this.errorSubmit = '';
         this.userLogin.reset();
         this.showModal();
+        
+        localStorage.setItem('user', resp.user.id);
+        
+        this.authService.getById(resp.user.id).subscribe( user => {
+          this.authService.setUserDataR(user);
+        })
 
-        this.authService.setUserDataR(resp.user); // Guarda datos de usuario
         const status = resp.user.status;
 
         if (status == 0){

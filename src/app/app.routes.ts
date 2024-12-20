@@ -46,6 +46,21 @@ export const routes: Routes = [
                         path: 'crear',
                         title: 'Agregar Habitación',
                         loadComponent: () => import('./dashboard/pages/room/new-room/new-room.component')
+                    },
+                    {
+                        path: 'editar/:id',
+                        title: 'Editar Habitación',
+                        loadComponent: () => import('./dashboard/pages/room/edit-room/edit-room.component')
+                    },
+                    {
+                        path: 'tipo',
+                        title: 'Tipo de habitación',
+                        loadComponent: () => import('./dashboard/pages/room/type-room/type-room.component')
+                    },
+                    {
+                        path: 'tipo/:id',
+                        title: 'Editando tipo',
+                        loadComponent: () => import('./dashboard/pages/room/edit-type-room/edit-type-room.component')
                     }
                 ]
             },
@@ -82,7 +97,7 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/login',
+        redirectTo: '/dashboard',
         pathMatch: 'full'
     },
     {

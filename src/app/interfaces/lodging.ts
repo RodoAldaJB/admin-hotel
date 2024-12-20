@@ -1,12 +1,12 @@
 export interface Lodging {
     id:          number;
-    id_client:   number;
-    id_user:     number;
-    habitations: Habitation[];
-    checkin:     Date;
-    checkout:    Date;
     adults:      number;
     children:    number;
+    checkin:     Date;
+    checkout:    Date;
+    client:      Client;
+    user:     number;
+    habitations: Habitation[];
     price:       number;
     status:      string;
     created_at:  string;
@@ -19,9 +19,9 @@ export interface Habitation {
     adults:             number;
     children:           number;
     description:        string;
-    status:             string;
-    type_habitation:    TypeHabitation;
-    lodging:            null;    
+    lodging?:            LodgingHabitation;
+    type_habitation:    TypeHabitation;  
+    status?:             string;
 }
 
 export interface NewHabitation {    
@@ -36,8 +36,18 @@ export interface NewHabitation {
 export interface TypeHabitation {
     id:          number;
     name:        string;
-    description: string;
-    price:       number;
-    images:      string;
-    status:      number;
+    description?: string;
+    price?:       number;
+    images:      string[];
+    status?:      string;
+}
+
+interface Client{
+    id: string,
+    name: string,
+    lastname: string
+}
+
+interface LodgingHabitation{
+    id: string;
 }

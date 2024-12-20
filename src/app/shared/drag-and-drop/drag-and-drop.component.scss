@@ -1,0 +1,18 @@
+.drop-area {
+    
+    transition: background-color 0.3s ease-in-out;
+  }
+  .drop-area.dragging {
+    background-color: #e3f7ff;
+    border-color: #007bff;
+    color: #007bff;
+  }
+  /*ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+  }
+  img {
+    max-width: 100px;
+    margin: 5px;
+  }*/

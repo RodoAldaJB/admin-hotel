@@ -1,0 +1,33 @@
+<div id="last-users">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Habitación 1 -->
+         @for (type of types; track $index) {
+
+             <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                <app-carrousel-simple [slides]="type.images"></app-carrousel-simple> 
+                
+                 <div class="p-6">
+                     <div class="flex justify-between items-center mb-4">
+                         <h3 class="text-xl font-bold text-gray-800">Habitación {{ type.name | uppercase }}</h3>
+                         @if (type.status == '1') {
+                             <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-xs font-medium">Activo</span>                            
+                         } @else if (type.status == '0') {
+                             <span class="px-3 py-1 bg-red-100 text-red-600 rounded-full text-xs font-medium">Inactivo</span>                             
+                         }
+                     </div>
+                     <p class="text-gray-600 mb-2">{{ type.description}}</p>
+                     <p class="text-2xl font-bold text-gray-800 mb-4">${{ type.price }}<span class="text-sm text-gray-600 font-normal">/noche</span></p>
+                     <div class="flex gap-2">
+                         <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">Reservar</button>
+                         <button
+                          class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                          [routerLink]="['/dashboard/habitaciones/tipo/',type.id]" routerLinkActive="router-link-active" 
+                          >Editar</button>
+                     </div>
+                 </div>
+             </div>
+         }
+    </div>
+</div>
+

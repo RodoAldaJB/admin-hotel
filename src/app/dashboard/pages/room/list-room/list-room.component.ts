@@ -29,7 +29,6 @@ export default class ListComponent {
     this.data.getListHabitations().subscribe(resp => {
 
       this.habitations = resp;
-      console.log(resp)
 
     })
   }

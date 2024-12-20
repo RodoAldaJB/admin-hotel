@@ -21,7 +21,7 @@ export default class PendingComponent implements OnInit{
   ngOnInit(): void {
     this.lodgings.getReservations().subscribe( (resp) => {
       this.data = resp.filter(value => value.status == 'pendiente' );
-
+      console.log(this.data)
     })
     
   }

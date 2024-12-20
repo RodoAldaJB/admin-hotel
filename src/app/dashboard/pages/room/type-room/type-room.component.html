@@ -1,5 +1,5 @@
 <div class="flex">
-    <app-title class="flex-auto" title="Listado de Habitaciones"/>
+    <app-title class="flex-auto" title="Tipo de Habitaciones"/>
     <div class="flex-auto">
         <button type="button" 
                 routerLink="/dashboard/habitaciones/crear"
@@ -11,9 +11,9 @@
     </div>
 </div>
 
-@if (habitations) {
+@if (types) {
 
-    <app-table-list-habitations [habitations]="habitations"/>
+    <app-list-type-habitation [types]="types"/>
     
     
 }@else {

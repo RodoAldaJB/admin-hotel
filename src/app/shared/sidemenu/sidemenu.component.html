@@ -3,11 +3,15 @@
     <p class="text-slate-400 text-sm mb-2">Bienvenido,</p>
     <a href="#" class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2">
         <div>
-            <img class="rounded-full w-10 h-10 relative object-cover" src="http://localhost:3000/{{ user.avatar }}" alt="">
+            @if (user.avatar) {
+                <img class="rounded-full w-10 h-10 relative object-cover" src="http://localhost:3000/{{ user.avatar }}" alt="">
+            } @else {
+                <img class="rounded-full w-10 h-10 relative object-cover" src="assets/user-avatar.png" alt="">
+            }
         </div>
         <div>
-            <p class="font-medium group-hover:text-indigo-400 leading-4">{{ user.name }}</p>
-            <span class="text-xs text-slate-400">{{ user.role }}</span>
+            <p class="font-medium group-hover:text-indigo-400 leading-4">{{ user.worker.name }} {{ user.worker.lastname }}</p>
+            <span class="text-xs text-slate-400">{{ user.role.name| uppercase }}</span>
         </div>
     </a>
     <hr class="my-2 border-slate-700">

@@ -3,12 +3,15 @@ import { routes } from '../../app.routes';
 import { RouterModule } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AuthService } from '../../services/auth.service';
+import { UpperCasePipe } from '@angular/common';
+import { user } from '../../interfaces/userAuth';
 
 @Component({
   selector: 'app-sidemenu',
   standalone: true,
   imports: [  
-    RouterModule
+    RouterModule,
+    UpperCasePipe
   ],
   templateUrl: './sidemenu.component.html',
   styleUrl: './sidemenu.component.scss'
@@ -22,7 +25,7 @@ export class SidemenuComponent implements OnInit{
   .filter( route => !route.path?.includes(':') );
 
   userLogin = inject(AuthService);
-  user: any;
+  user: user;
 
  icons = [
   {
@@ -56,11 +59,16 @@ export class SidemenuComponent implements OnInit{
   }
  ];
 
- constructor(private sanitizer: DomSanitizer){}
+ constructor(private sanitizer: DomSanitizer){
+  this.user  = { id: '', avatar: '', email: '', status: 0, role: {id_role: '', name: ''}, worker: { id_worker: '', name: '', lastname: '' }} 
+ }
 
  ngOnInit(): void {
    this.userLogin.userDataR$.subscribe( data => {
-      console.log(data)
+      this.user = data;
+
+      if (data == null) this.user  = { id: '', avatar: '', email: '', status: 0, role: {id_role: '', name: ''}, worker: { id_worker: '', name: '', lastname: '' }} 
+      
    })
  }
 

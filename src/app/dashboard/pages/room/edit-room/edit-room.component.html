@@ -1,0 +1,170 @@
+<div class="flex flex-col gap-6">
+    <div class="flex items-center">
+        <button routerLink="/dashboard/habitaciones" class="mb-3 me-3">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+            
+        </button>
+        <app-title class="flex-1" title="Editar Habitación"/>
+    </div>
+
+    <form class="max-w-md mx-auto" [formGroup]="pathHabitation" (ngSubmit)="onSubmit()">
+
+        <div class="text-sm text-gray-500 dark:text-gray-400 mb-4">Tipo de habitación</div>
+        <div class="text-sm text-center bg-gray-700 rounded rounded-b-none py-1">{{habitation?.type_habitation?.name | uppercase }}</div>
+        <button class="flex items-center justify-center gap-1 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full px-5 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 rounded-t-none"
+                (click)="editType = !editType"
+                type="button">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="18"  height="18"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
+            Editar 
+        </button>
+
+        <div class="flex justify-center gap-8 z-0 w-full mb-5 group transition-opacity duration-300 ease-in-out overflow-hidden border-b-2 border-gray-300 h-0 opacity-0" [ngClass]="{'h-auto': editType, 'opacity-100': editType}">
+            @for (type of typeHabitations; track type.id) {
+
+                <label class="flex-col items-center my-5 cursor-pointer">
+                    <input type="radio" formControlName="id_type_habitation" name="id_type_habitation" id="{{ type.id }}" value="{{ type.id }}" class="sr-only peer">
+                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span class="peer-focus:font-medium  text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">{{ type.name }}</span>
+                </label>
+            }
+            
+            
+        </div> 
+        @if (pathHabitation.controls["id_type_habitation"].invalid && pathHabitation.controls["id_type_habitation"].touched) {
+            <span>campo requerido</span>
+        }
+
+        <div class="relative z-0 w-full mb-5 group">
+            <input 
+                type="text" 
+                pattern="^[0-9]+" 
+                formControlName="number" 
+                id="number" 
+                class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                placeholder=" " 
+                required />
+            <label for="number" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Numero de habitación</label>
+            @if (pathHabitation.controls["number"].invalid && pathHabitation.controls["number"].touched) {
+                <span class="text-sm text-red-500">campo numerico obligatorio</span>
+            }
+        </div>
+        
+        <div class="text-sm text-gray-500 dark:text-gray-400 mb-3">Capacidad número de:</div>
+        <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" pattern="^[0-9]+" formControlName="adults" id="adults" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="adults" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">adultos</label>
+                @if (pathHabitation.controls["adults"].invalid && pathHabitation.controls["adults"].touched) {
+                    <span class="text-sm text-red-500">campo numerico obligatorio</span>
+                }
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" pattern="^[0-9]+" formControlName="children" id="children" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="children" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">niños</label>
+                @if (pathHabitation.controls["children"].invalid && pathHabitation.controls["children"].touched) {
+                    <span class="text-sm text-red-500">campo numerico obligatorio</span>
+                }
+            </div>
+        </div>
+        
+        <div class="relative z-0 w-full mb-5 group">
+            
+            <textarea id="description" formControlName="description" rows="4" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Descripción"></textarea>
+        </div>
+
+        <div class="text-sm text-gray-500 dark:text-gray-400 mb-4">Status</div>
+        @if (habitation?.status == '0') {
+            <div class="text-sm text-center bg-green-100 text-green-600 rounded rounded-b-none py-1 uppercase">Disponible</div>
+        }@else if (habitation?.status == '1') {
+            <div class="text-sm text-center bg-red-100 text-red-600 rounded rounded-b-none py-1 uppercase">Ocupado</div>
+        }@else if (habitation?.status == '2') { 
+            <div class="text-sm text-center bg-yellow-100 text-yellow-600 rounded rounded-b-none py-1 uppercase">Reservado</div>
+        }@else if (habitation?.status == '3') {
+            <div class="text-sm text-center bg-blue-100 text-blue-600 rounded rounded-b-none py-1 uppercase">En Limpieza</div>
+        }@else if (habitation?.status == '4') {
+            <div class="text-sm text-center bg-gray-100 text-gray-600 rounded rounded-b-none py-1 uppercase">Fuera de servicio</div>
+        } @else {
+            <div class="text-sm text-center bg-gray-700 rounded rounded-b-none py-1 uppercase">Sin Especificar</div>
+        }
+        <button class="flex items-center justify-center gap-1 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full px-5 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 rounded-t-none"
+                (click)="editStatus = !editStatus"
+                type="button">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="18"  height="18"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
+            Editar 
+        </button>
+        
+        <div class="flex justify-center gap-4 z-0 w-full mb-5 group transition-opacity duration-300 ease-in-out overflow-hidden border-b-2 border-gray-300 h-0 opacity-0" [ngClass]="{'h-auto': editStatus, 'opacity-100': editStatus}">
+            
+                <label class="flex-col items-center my-5 cursor-pointer">
+                    <input type="radio" formControlName="status" name="status" id="0" value="0" class="sr-only peer">
+                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+                    <span class="peer-focus:font-medium  text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Disponible</span>
+                </label>
+
+                <label class="flex-col items-center my-5 cursor-pointer">
+                    <input type="radio" formControlName="status" name="status" id="1" value="1" class="sr-only peer">
+                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+                    <span class="peer-focus:font-medium  text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Ocupado</span>
+                </label>
+            
+                <label class="flex-col items-center my-5 cursor-pointer">
+                    <input type="radio" formControlName="status" name="status" id="2" value="2" class="sr-only peer">
+                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-yellow-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-yellow-600"></div>
+                    <span class="peer-focus:font-medium  text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-yellow-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Reservada</span>
+                </label>
+
+                <label class="flex-col items-center my-5 cursor-pointer">
+                    <input type="radio" formControlName="status" name="status" id="3" value="3" class="sr-only peer">
+                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span class="peer-focus:font-medium  text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">En Limpieza</span>
+                </label>
+
+                <label class="flex-col items-center my-5 cursor-pointer">
+                    <input type="radio" formControlName="status" name="status" id="4" value="4" class="sr-only peer">
+                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-600"></div>
+                    <span class="peer-focus:font-medium  text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-gray-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Fuera de<br>servicio</span>
+                </label>
+            
+        </div> 
+        @if (pathHabitation.controls["status"].invalid && pathHabitation.controls["status"].touched) {
+            <span>campo requerido</span>
+        }
+
+        @if(errorSubmit != ''){
+            <div class="text-sm text-red-500">{{errorSubmit}}</div>
+        }
+
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" [disabled]="pathHabitation.invalid">Guardar</button>
+    </form>
+
+</div>
+
+@if (submit) {
+
+    <div id="popup-modal" tabindex="-1" [ngClass]="{'flex': true}" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                
+                <div class="p-4 md:p-5 text-center">
+                    @if (errorSubmit != '') {
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>
+                    <h3 class="mb-10 text-lg font-normal text-gray-500 dark:text-gray-400">{{ errorSubmit }}</h3>
+
+                        <button (click)="hideModal()" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            Editar
+                        </button>
+                        <button routerLink="/dashboard/habitaciones" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
+                    }@else {
+                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Operación exitosa</h3>
+                        <button routerLink="/dashboard/habitaciones" type="button" class="text-white bg-green-800 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            Volver
+                        </button>
+                        
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

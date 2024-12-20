@@ -15,21 +15,31 @@ export class ClientsService {
   constructor() { }
 
   getReservations(): Observable<Lodging[]>{
-    return this.http.get<Lodging[]>(`${this.url}reservacion`, { withCredentials: true })
+    return this.http.get<Lodging[]>(`${this.url}reservacion`)
   }
 
   getListHabitations(): Observable<Habitation[]>{
-    return this.http.get<Habitation[]>(`${this.url}habitacion`, { withCredentials: true })
+    return this.http.get<Habitation[]>(`${this.url}habitacion`)
   }
 
-  getTypeHabitation(): Observable<TypeHabitation[]>{
-    return this.http.get<TypeHabitation[]>(`${this.url}tipo-habitacion`, { withCredentials: true })
+  getHabitation(id: string): Observable<any>{
+    return this.http.get<any>(`${this.url}habitacion/${id}`)
   }
-
+  
   setHabitation(habitation: NewHabitation ):Observable<NewHabitation>{
-    return this.http.post<NewHabitation>(`${this.url}habitacion`, habitation, { withCredentials: true } )
-    
+    return this.http.post<NewHabitation>(`${this.url}habitacion`, habitation)    
   }
 
+  updateHabitation(id: any, habitation: Habitation ): Observable<Habitation>{
+    return this.http.patch<Habitation>(`${this.url}habitacion/${id}`, habitation)
+  }
+
+  getTypeHabitations(): Observable<TypeHabitation[]>{
+    return this.http.get<TypeHabitation[]>(`${this.url}tipo-habitacion`)
+  }
+
+  getTypeHabitation(id: string): Observable<TypeHabitation>{
+    return this.http.get<TypeHabitation>(`${this.url}tipo-habitacion/${id}`)
+  }
   
 }

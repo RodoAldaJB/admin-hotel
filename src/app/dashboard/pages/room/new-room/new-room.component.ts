@@ -39,7 +39,7 @@ export default class NewRoomComponent {
       status: ['0']
     });
 
-    this.data.getTypeHabitation().subscribe( resp => {
+    this.data.getTypeHabitations().subscribe( resp => {
       this.typeHabitations = resp;
     })
   }
